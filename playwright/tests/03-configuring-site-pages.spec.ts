@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -25,17 +25,20 @@ test('Configuring Site Pages', async ({page}) => {
 	// Step 1. While in the Pages application, click *Actions* (![icon-actions.png](../../images/icon-actions.png)) for the C
 	await test.step('Step 1. While in the Pages application, click *Actions* (![icon-actions.png](../../images/icon-actions.png)) for the C', async () => {
 		await armCapture(page, ['mastering-liferay-pages-and-navigation/04-site-pages/05-adding-claritys-site-pages/images/07.png']);
-		await press(page, 'Actions', 'Contact Us page', 'actions');
+		await openMenu(page, 'Site Menu', 'Site Builder', 'Pages');
+		await press(page, 'Actions', 'Contact Us', 'actions');
 		await press(page, 'Configure');
 
 		await capture(page, {name: 'mastering-liferay-pages-and-navigation/04-site-pages/05-adding-claritys-site-pages/images/07.png'});
 	});
 
 	// Step 2. In the General tab, set the Friendly URL to `/contact`.
-	// Not performed: no control or value named in this step.
+	await test.step('Step 2. In the General tab, set the Friendly URL to `/contact`.', async () => {
+		await armCapture(page, ['mastering-liferay-pages-and-navigation/04-site-pages/05-adding-claritys-site-pages/images/08.png']);
+		await fill(page, 'Friendly URL', '/contact');
 
-	// Screenshot skipped: the step it belongs to was not performed.
-	await test.step.skip('Step 2. In the General tab, set the Friendly URL to `/contact`. - not performed: no control or value named in this step', async () => {});
+		await capture(page, {name: 'mastering-liferay-pages-and-navigation/04-site-pages/05-adding-claritys-site-pages/images/08.png'});
+	});
 
 	// Step 3. Scroll down and click *Save*.
 	await test.step('Step 3. Scroll down and click *Save*.', async () => {

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -61,6 +61,12 @@ test('Adding Clarity\'s Header Navigation Menu', async ({page}) => {
 	// Step 7. Check these pages and click *Select*:
 	await test.step('Step 7. Check these pages and click *Select*:', async () => {
 		await armCapture(page, ['mastering-liferay-pages-and-navigation/05-site-navigation/03-implementing-claritys-navigation-menus/images/03.png']);
+		await toggle(page, 'About Us', true);
+		await toggle(page, 'Blog', true);
+		await toggle(page, 'Careers', true);
+		await toggle(page, 'Contact Us', true);
+		await toggle(page, 'FAQ', true);
+		await toggle(page, 'Products', true);
 		await press(page, 'Select');
 
 		await capture(page, {name: 'mastering-liferay-pages-and-navigation/05-site-navigation/03-implementing-claritys-navigation-menus/images/03.png'});

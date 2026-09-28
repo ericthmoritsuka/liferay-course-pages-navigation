@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -24,7 +24,8 @@ test('Creating Child Pages', async ({page}) => {
 
 	// Step 1. While in the Pages application, click *Add Child Page* (![Add Child Page](../../images/icon-plus.png)) for the
 	await test.step('Step 1. While in the Pages application, click *Add Child Page* (![Add Child Page](../../images/icon-plus.png)) for the', async () => {
-		await press(page, 'Add Child Page', 'Products page', 'plus');
+		await openMenu(page, 'Site Menu', 'Site Builder', 'Pages');
+		await press(page, 'Add Child Page', 'Products', 'plus');
 	});
 
 	// Step 2. Select the *Primary Master Page* template.

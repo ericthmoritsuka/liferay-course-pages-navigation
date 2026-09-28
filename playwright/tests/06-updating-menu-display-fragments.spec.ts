@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -52,10 +52,8 @@ test('Updating Menu Display Fragments', async ({page}) => {
 	});
 
 	// Step 6. Repeat steps 3-5 for each Menu Display fragment under the Page Footer container:
-	// Not entered: Products, About Us, Resources, Get In Touch, Legal - chosen from a control rather than typed.
-
-	// Screenshot skipped: the step it belongs to was not performed.
-	await test.step.skip('Step 6. Repeat steps 3-5 for each Menu Display fragment under the Page Footer container: - not performed', async () => {});
+	// Not performed: each row of its table names a different target, which a replay cannot address yet.
+	await test.step.skip('Step 6. Repeat steps 3-5 for each Menu Display fragment under the Page Footer container: - not performed: each row of its table names a different target, which a replay cannot address yet', async () => {});
 
 	// Step 7. Click *Publish Master*.
 	await test.step('Step 7. Click *Publish Master*.', async () => {

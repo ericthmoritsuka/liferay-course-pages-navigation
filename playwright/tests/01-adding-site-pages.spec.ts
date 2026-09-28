@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -62,9 +62,44 @@ test('Adding Site Pages', async ({page}) => {
 	});
 
 	// Step 7. Repeat steps 3-6 to create these pages:
-	// Not performed: no control or value named in this step.
+	await test.step('Step 7. Repeat steps 3-6 - About Us', async () => {
+		await press(page, 'New');
+		await press(page, 'Primary Master Page');
+		await fill(page, 'Name', 'About Us');
+		await press(page, 'Add');
+		await press(page, 'Publish');
+	});
 
-	// Screenshot skipped: the step it belongs to was not performed.
-	await test.step.skip('Step 7. Repeat steps 3-6 to create these pages: - not performed: no control or value named in this step', async () => {});
+	await test.step('Step 7. Repeat steps 3-6 - Blog', async () => {
+		await press(page, 'New');
+		await press(page, 'Primary Master Page');
+		await fill(page, 'Name', 'Blog');
+		await press(page, 'Add');
+		await press(page, 'Publish');
+	});
+
+	await test.step('Step 7. Repeat steps 3-6 - FAQ', async () => {
+		await press(page, 'New');
+		await press(page, 'Primary Master Page');
+		await fill(page, 'Name', 'FAQ');
+		await press(page, 'Add');
+		await press(page, 'Publish');
+	});
+
+	await test.step('Step 7. Repeat steps 3-6 - Careers', async () => {
+		await press(page, 'New');
+		await press(page, 'Primary Master Page');
+		await fill(page, 'Name', 'Careers');
+		await press(page, 'Add');
+		await press(page, 'Publish');
+	});
+
+	await test.step('Step 7. Repeat steps 3-6 - Contact Us', async () => {
+		await press(page, 'New');
+		await press(page, 'Primary Master Page');
+		await fill(page, 'Name', 'Contact Us');
+		await press(page, 'Add');
+		await press(page, 'Publish');
+	});
 
 });

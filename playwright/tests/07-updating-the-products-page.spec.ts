@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -28,7 +28,7 @@ test('Updating the Products Page', async ({page}) => {
 
 	// Step 2. Go to the *Products* page and begin editing it (![](../../images/icon-edit.png)).
 	await test.step('Step 2. Go to the *Products* page and begin editing it (![](../../images/icon-edit.png)).', async () => {
-		await press(page, 'Products');
+		await openPageEditor(page, 'Products');
 	});
 
 	// Step 3. Open the *Components* panel (![Fragments and Widgets panel](../../images/icon-plus.png)).
@@ -37,8 +37,9 @@ test('Updating the Products Page', async ({page}) => {
 	});
 
 	// Step 4. In the Fragments tab, drag and drop a *Container* fragment into the page's drop zone.
-	// Not performed: no control or value named in this step.
-	await test.step.skip('Step 4. In the Fragments tab, drag and drop a *Container* fragment into the page\'s drop zone. - not performed: no control or value named in this step', async () => {});
+	await test.step('Step 4. In the Fragments tab, drag and drop a *Container* fragment into the page\'s drop zone.', async () => {
+		await addComponent(page, 'Container');
+	});
 
 	// Step 5. Go to the *Widgets* tab.
 	await test.step('Step 5. Go to the *Widgets* tab.', async () => {
@@ -46,8 +47,9 @@ test('Updating the Products Page', async ({page}) => {
 	});
 
 	// Step 6. Drag and drop the *Commerce Categories Navigation* widget into the new container.
-	// Not performed: no control or value named in this step.
-	await test.step.skip('Step 6. Drag and drop the *Commerce Categories Navigation* widget into the new container. - not performed: no control or value named in this step', async () => {});
+	await test.step('Step 6. Drag and drop the *Commerce Categories Navigation* widget into the new container.', async () => {
+		await addComponent(page, 'Commerce Categories Navigation', 'container');
+	});
 
 	// Step 7. Select the *Commerce Categories Navigation* widget, click *Actions* (![](../../images/icon-actions.png)) for t
 	await test.step('Step 7. Select the *Commerce Categories Navigation* widget, click *Actions* (![](../../images/icon-actions.png)) for t', async () => {

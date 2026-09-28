@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -23,19 +23,18 @@ test('Updating the Product List Page', async ({page}) => {
 	await signIn(page, 'walter');
 
 	// Step 1. Open the *Site Menu* (![](../../images/icon-product-menu.png)), click *Page Tree* (![icon-pages-tree.png](../.
-	await test.step('Step 1. Open the *Site Menu* (![](../../images/icon-product-menu.png)), click *Page Tree* (![icon-pages-tree.png](../.', async () => {
-		await openMenu(page, 'Site Menu', 'Products', 'Product List');
-	});
+	// Not performed: moving through the page tree is not supported yet.
+	await test.step.skip('Step 1. Open the *Site Menu* (![](../../images/icon-product-menu.png)), click *Page Tree* (![icon-pages-tree.png](../. - not performed: moving through the page tree is not supported yet', async () => {});
 
 	// Step 2. Click *Edit* (![](../../images/icon-edit.png)) to start editing the page.
 	await test.step('Step 2. Click *Edit* (![](../../images/icon-edit.png)) to start editing the page.', async () => {
-		await openPageEditor(page, 'the');
-		await press(page, 'Edit');
+		await press(page, 'Edit', undefined, 'edit');
 	});
 
 	// Step 3. From the Components panel, drag and drop the *Product Lists Page* fragment composition into the page's drop zo
-	// Not performed: no control or value named in this step.
-	await test.step.skip('Step 3. From the Components panel, drag and drop the *Product Lists Page* fragment composition into the page\'s drop zo - not performed: no control or value named in this step', async () => {});
+	await test.step('Step 3. From the Components panel, drag and drop the *Product Lists Page* fragment composition into the page\'s drop zo', async () => {
+		await addComponent(page, 'Product Lists Page');
+	});
 
 	// Step 4. Select the *Search Results* widget, click *Actions* (![](../../images/icon-actions.png)) for the widget, and s
 	await test.step('Step 4. Select the *Search Results* widget, click *Actions* (![](../../images/icon-actions.png)) for the widget, and s', async () => {
@@ -61,10 +60,10 @@ test('Updating the Product List Page', async ({page}) => {
 	});
 
 	// Step 8. Drag and drop a *Category Content* widget just above the Search Results container.
-	// Not performed: no control or value named in this step.
+	// Not performed: placing *Category Content* just above the search results container needs a drop at a position this cannot address yet.
 
 	// Screenshot skipped: the step it belongs to was not performed.
-	await test.step.skip('Step 8. Drag and drop a *Category Content* widget just above the Search Results container. - not performed: no control or value named in this step', async () => {});
+	await test.step.skip('Step 8. Drag and drop a *Category Content* widget just above the Search Results container. - not performed: placing *Category Content* just above the search results container needs a drop at a position this cannot address yet', async () => {});
 
 	// Step 9. Click *Publish*.
 	await test.step('Step 9. Click *Publish*.', async () => {
