@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, choose, closeModal, download, enableSomeOptions, fill, fragmentOption, goHome, openFromPageTree, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, reorderMenu, selectInEditor, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -73,7 +73,8 @@ test('Adding Clarity\'s Header Navigation Menu', async ({page}) => {
 	});
 
 	// Step 8. Drag and drop the pages into this order:
-	// Not performed: no control or value named in this step.
-	await test.step.skip('Step 8. Drag and drop the pages into this order: - not performed: no control or value named in this step', async () => {});
+	await test.step('Step 8. Drag and drop the pages into this order:', async () => {
+		await reorderMenu(page, ['Products', 'About Us', 'Blog', 'FAQ', 'Careers', 'Contact Us']);
+	});
 
 });

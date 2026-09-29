@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, choose, closeModal, download, enableSomeOptions, fill, fragmentOption, goHome, openFromPageTree, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, reorderMenu, selectInEditor, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -33,10 +33,10 @@ test('Creating Child Pages', async ({page}) => {
 		await press(page, 'Primary Master Page');
 	});
 
-	// Step 3. Enter `Product List` for Name and click *Save*.
-	await test.step('Step 3. Enter `Product List` for Name and click *Save*.', async () => {
+	// Step 3. Enter `Product List` for Name and click *Add*.
+	await test.step('Step 3. Enter `Product List` for Name and click *Add*.', async () => {
 		await fill(page, 'Name', 'Product List');
-		await press(page, 'Save');
+		await press(page, 'Add');
 	});
 
 	// Step 4. Leave the page blank and click *Publish*.

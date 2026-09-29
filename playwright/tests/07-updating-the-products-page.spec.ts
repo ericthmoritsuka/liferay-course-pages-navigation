@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, choose, closeModal, download, enableSomeOptions, fill, fragmentOption, goHome, openFromPageTree, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, reorderMenu, selectInEditor, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -53,14 +53,15 @@ test('Updating the Products Page', async ({page}) => {
 
 	// Step 7. Select the *Commerce Categories Navigation* widget, click *Actions* (![](../../images/icon-actions.png)) for t
 	await test.step('Step 7. Select the *Commerce Categories Navigation* widget, click *Actions* (![](../../images/icon-actions.png)) for t', async () => {
-		await press(page, 'Commerce Categories Navigation');
-		await press(page, 'Actions', 'widget', 'actions');
-		await press(page, 'Configuration');
+		await selectInEditor(page, 'Commerce Categories Navigation');
+		await fragmentOption(page, 'Configuration');
 	});
 
 	// Step 8. Configure these settings:
-	// Not entered: Display Template, Vocabulary - chosen from a control rather than typed.
-	await test.step.skip('Step 8. Configure these settings: - not performed', async () => {});
+	await test.step('Step 8. Configure these settings:', async () => {
+		await choose(page, 'Display Template', 'Clarity Category Cards');
+		await choose(page, 'Vocabulary', 'Clarity Products');
+	});
 
 	// Step 9. Click *Save* and close the window.
 	await test.step('Step 9. Click *Save* and close the window.', async () => {

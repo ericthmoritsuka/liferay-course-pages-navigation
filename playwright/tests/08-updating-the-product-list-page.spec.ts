@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, choose, closeModal, download, enableSomeOptions, fill, fragmentOption, goHome, openFromPageTree, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, reorderMenu, selectInEditor, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -23,8 +23,9 @@ test('Updating the Product List Page', async ({page}) => {
 	await signIn(page, 'walter');
 
 	// Step 1. Open the *Site Menu* (![](../../images/icon-product-menu.png)), click *Page Tree* (![icon-pages-tree.png](../.
-	// Not performed: moving through the page tree is not supported yet.
-	await test.step.skip('Step 1. Open the *Site Menu* (![](../../images/icon-product-menu.png)), click *Page Tree* (![icon-pages-tree.png](../. - not performed: moving through the page tree is not supported yet', async () => {});
+	await test.step('Step 1. Open the *Site Menu* (![](../../images/icon-product-menu.png)), click *Page Tree* (![icon-pages-tree.png](../.', async () => {
+		await openFromPageTree(page, ['Products', 'Product List']);
+	});
 
 	// Step 2. Click *Edit* (![](../../images/icon-edit.png)) to start editing the page.
 	await test.step('Step 2. Click *Edit* (![](../../images/icon-edit.png)) to start editing the page.', async () => {
@@ -38,9 +39,8 @@ test('Updating the Product List Page', async ({page}) => {
 
 	// Step 4. Select the *Search Results* widget, click *Actions* (![](../../images/icon-actions.png)) for the widget, and s
 	await test.step('Step 4. Select the *Search Results* widget, click *Actions* (![](../../images/icon-actions.png)) for the widget, and s', async () => {
-		await press(page, 'Search Results');
-		await press(page, 'Actions', 'widget', 'actions');
-		await press(page, 'Configuration');
+		await selectInEditor(page, 'Search Results');
+		await fragmentOption(page, 'Configuration');
 	});
 
 	// Step 5. For Render Selection, select *Use Application Display Template*.
@@ -50,7 +50,7 @@ test('Updating the Product List Page', async ({page}) => {
 
 	// Step 6. For *Display Template*, select *Clarity Search Results Cards*.
 	await test.step('Step 6. For *Display Template*, select *Clarity Search Results Cards*.', async () => {
-		await press(page, 'Clarity Search Results Cards');
+		await choose(page, 'Display Template', 'Clarity Search Results Cards');
 	});
 
 	// Step 7. Click *Save* and close the window.
@@ -72,6 +72,7 @@ test('Updating the Product List Page', async ({page}) => {
 
 	// Step 10. Return to the *Products* page and click one of the category cards (e.g. *Sunglasses*).
 	await test.step('Step 10. Return to the *Products* page and click one of the category cards (e.g. *Sunglasses*).', async () => {
+		await openFromPageTree(page, ['Products']);
 		await press(page, 'Sunglasses');
 	});
 

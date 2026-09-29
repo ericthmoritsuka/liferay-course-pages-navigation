@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, choose, closeModal, download, enableSomeOptions, fill, fragmentOption, goHome, openFromPageTree, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, reorderMenu, selectInEditor, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -34,7 +34,7 @@ test('Updating Menu Display Fragments', async ({page}) => {
 
 	// Step 3. Select the *Menu Display* fragment in the header.
 	await test.step('Step 3. Select the *Menu Display* fragment in the header.', async () => {
-		await press(page, 'Menu Display');
+		await selectInEditor(page, 'Menu Display', 'header');
 	});
 
 	// Step 4. In the configuration side panel, click *Change Source* (![](../../images/icon-change.png)) for the menu's Sour

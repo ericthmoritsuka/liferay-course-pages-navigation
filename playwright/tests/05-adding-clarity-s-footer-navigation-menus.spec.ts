@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {addComponent, attach, closeModal, download, enableSomeOptions, fill, goHome, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
+import {addComponent, attach, choose, closeModal, download, enableSomeOptions, fill, fragmentOption, goHome, openFromPageTree, openMenu, openPageEditor, openPageSettings, press, pressKeys, reload, reorderMenu, selectInEditor, toggle, transfer, verifyHead, visitAsGuest, visitInNewBrowser, waitForReindex} from '../helpers/liferay';
 import {CAPTURE, armCapture, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -52,22 +52,22 @@ test('Adding Clarity\'s Footer Navigation Menus', async ({page}) => {
 
 	// Step 4. For the first About Us page item, click *Actions* (![](../../images/icon-actions.png)) and select *View Info* 
 	await test.step('Step 4. For the first About Us page item, click *Actions* (![](../../images/icon-actions.png)) and select *View Info*', async () => {
-		await press(page, 'Actions', undefined, 'actions');
+		await press(page, 'Actions', 'first About Us', 'actions');
 		await press(page, 'View Info', undefined, 'information');
 	});
 
 	// Step 5. Check *Use Custom Name*, enter `Leadership` for Name, and click *Save*.
 	await test.step('Step 5. Check *Use Custom Name*, enter `Leadership` for Name, and click *Save*.', async () => {
-		await press(page, 'Use Custom Name');
+		await toggle(page, 'Use Custom Name', true);
 		await fill(page, 'Name', 'Leadership');
 		await press(page, 'Save');
 	});
 
 	// Step 6. Repeat steps 4-5 for the second About Us item and rename it `Our Impact`.
 	await test.step('Step 6. Repeat steps 4-5 - Our Impact', async () => {
-		await press(page, 'Actions', undefined, 'actions');
+		await press(page, 'Actions', 'first About Us', 'actions');
 		await press(page, 'View Info', undefined, 'information');
-		await press(page, 'Use Custom Name');
+		await toggle(page, 'Use Custom Name', true);
 		await fill(page, 'Name', 'Our Impact');
 		await press(page, 'Save');
 	});
@@ -75,6 +75,9 @@ test('Adding Clarity\'s Footer Navigation Menus', async ({page}) => {
 	// Step 7. Return to the *Navigation Menus* overview page and create a new menu named `Footer Legal Menu`.
 	await test.step('Step 7. Return to the *Navigation Menus* overview page and create a new menu named `Footer Legal Menu`.', async () => {
 		await openMenu(page, 'Site Menu', 'Site Builder', 'Navigation Menus');
+		await press(page, 'New');
+		await fill(page, 'Name', 'Footer Legal Menu');
+		await press(page, 'Save');
 	});
 
 	// Step 8. Click *Add* and select the *Web Content Article* item type.
@@ -118,6 +121,7 @@ test('Adding Clarity\'s Footer Navigation Menus', async ({page}) => {
 	await test.step('Step 12. Return to the *Navigation Menus* overview page and create these menus:', async () => {
 		await armCapture(page, ['mastering-liferay-pages-and-navigation/05-site-navigation/03-implementing-claritys-navigation-menus/images/06.png']);
 		await openMenu(page, 'Site Menu', 'Site Builder', 'Navigation Menus');
+		// Not performed: creating each listed item, with its contents, is not supported yet.
 
 		await capture(page, {name: 'mastering-liferay-pages-and-navigation/05-site-navigation/03-implementing-claritys-navigation-menus/images/06.png'});
 	});
